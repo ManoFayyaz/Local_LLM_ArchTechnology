@@ -17,10 +17,16 @@ if st.button("Reset Conversation"):
     st.rerun()
 
 # Display chat history
-for msg in st.session_state.messages:
-    with st.chat_message(msg["role"]):
-        st.markdown(msg["content"])
+st.sidebar.title("Conversation History")
 
+if st.session_state.messages:
+    for i, msg in enumerate(st.session_state.messages):
+        if msg["role"] == "user":
+            st.sidebar.markdown(f"**User:** {msg['content']}")
+        else:
+            st.sidebar.markdown(f"**Assistant:** {msg['content']}")
+else:
+    st.sidebar.write("No conversation yet.")
 # User input
 user_prompt = st.chat_input("Ask something...")
 
